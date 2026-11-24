@@ -1,0 +1,38 @@
+# /etc/redh-manager.conf — every key is optional; the values below are the defaults.
+
+[redh]
+# The unprivileged user that runs the containers.
+user = podman
+
+# Where the apps live: <root>/<app>. Defaults to the user's home.
+root = /opt/podman
+
+# The user's Quadlet directory; each app is installed into a subdirectory.
+quadlet_dir = /opt/podman/.config/containers/systemd
+
+# Inside <root>/<app>: the Quadlet files, and the Caddy snippet(s).
+quadlet_subdir = quadlet
+caddy_subdir = caddy
+# Plain units of the podman user (timers, the services they start), and where
+# they are installed: that directory is the user manager's own, without subfolders.
+systemd_subdir = systemd
+user_unit_dir = /opt/podman/.config/systemd/user
+
+# Caddy on the host: its main config, and the binary (PATH is searched).
+caddyfile = /etc/caddy/Caddyfile
+caddy = caddy
+
+# 'redh install' copies each app's snippet here, as <app>.caddy, and reloads
+# Caddy. The main Caddyfile imports them all with one line:
+#     import /etc/caddy/Caddyfile.d/*.caddy
+caddy_dir = /etc/caddy/Caddyfile.d
+
+# The systemd unit Caddy runs as. redh checks the snippets the way its user
+# sees them: a directory that user cannot enter or list hides them from Caddy.
+caddy_service = caddy.service
+
+# Seconds to watch units after starting them, to catch crash loops.
+settle = 5
+
+# Directories under <root> that are not apps (commas or spaces).
+ignore =

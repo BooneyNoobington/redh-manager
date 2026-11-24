@@ -1,0 +1,29 @@
+[build-system]
+requires = ["flit_core >=3.12,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "redh-manager"
+dynamic = ["version", "description"]
+readme = "README.md"
+requires-python = ">=3.9"
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
+dependencies = ["argcomplete >=3.1"]
+classifiers = [
+    "Environment :: Console",
+    "Intended Audience :: System Administrators",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Topic :: System :: Systems Administration",
+]
+
+[project.scripts]
+redh = "redh.cli:run"
+
+[tool.flit.module]
+name = "redh"
+
+[tool.flit.sdist]
+include = ["tests/", "redh-manager.conf.example"]
+exclude = ["rust/", "redh-manager.conf"]
